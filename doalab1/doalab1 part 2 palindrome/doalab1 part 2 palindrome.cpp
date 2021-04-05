@@ -11,21 +11,34 @@
 using namespace std;
 
 void ispalindromestack(stack<char> s, string &str) {
-	int i;
-	string reversed;
 	str.erase(remove_if(str.begin(), str.end(), isspace), str.end());
-	reversed = str;
+	string lowercase;
+	lowercase.resize(str.size());
+	bool ispalindrome = true;
 	// push into stack
-	for (i = 0; i < reversed.size()/2; i++) {
-		s.push(reversed[i]);
+	for (int i = 0; i < str.size(); i++) {
+		s.push(tolower(str[i]));	
 	}
-	// pop from stack
-	/*for (i = 0; i < reversed.size(); i++) {
-		reversed[i] = s.top();
-		s.pop();
-	}*/
+
+	for (int i = str.size() - 1; i >= 0; i--) {
+		lowercase[i] = tolower(str[i]);
+	}
+
+	for (int i = 0; i < str.size() - 1; i++) {
+		if (s.top() == lowercase[i]) {
+			s.pop();
+			continue;
+
+		}
+		else {
+			ispalindrome = false;
+			break;
+		}
+	}
+
+
 	//check if both are the same
-	if (reversed == str) {
+	if (ispalindrome == true) {
 		cout << "That is a palindrome";
 	}
 	else {
@@ -34,14 +47,13 @@ void ispalindromestack(stack<char> s, string &str) {
 }
 
 void ispalindromequeue(queue<char> q, string &str) {
-	int i;
 	bool ispalindrome = true;
 	str.erase(remove_if(str.begin(), str.end(), isspace), str.end());
 	// push to stack and queue
 	string reversed;
 	reversed.resize(str.size());
 
-	for (i = 0; i < str.size(); i++) {
+	for (int i = 0; i < str.size(); i++) {
 		q.push(tolower(str[i]));
 		//(str.size() - 1) - i)
 		
@@ -50,7 +62,7 @@ void ispalindromequeue(queue<char> q, string &str) {
 	for (int i = str.size() - 1; i >= 0; i--) {
 		reversed[i] = tolower(str[i]);
  	}
-	for (i = 0; i < str.size(); i++) {
+	for (int i = 0; i < str.size(); i++) {
 		// compare first element in queue with the first(reversed) element in the string
 		if (q.front() == reversed[i]) {
 			q.pop();
@@ -74,36 +86,53 @@ void ispalindromequeue(queue<char> q, string &str) {
 }
 //test function removes the cout to tell if its a palidrome or not
 void testpalindromestack(stack<char> &s, string &str) {
-	int i;
-	string reversed;
 	str.erase(remove_if(str.begin(), str.end(), isspace), str.end());
-	reversed = str;
+	string lowercase;
+	lowercase.resize(str.size());
+	bool ispalindrome = true;
 	// push into stack
-	for (i = 0; i < reversed.size(); i++) {
-		s.push(reversed[i]);
+	for (int i = 0; i < str.size(); i++) {
+		s.push(tolower(str[i]));
 	}
-	// pop from stack
-	for (i = 0; i < reversed.size(); i++) {
-		reversed[i] = s.top();
-		s.pop();
+
+	for (int i = str.size() - 1; i >= 0; i--) {
+		lowercase[i] = tolower(str[i]);
+	}
+
+	for (int i = 0; i < str.size() - 1; i++) {
+		if (s.top() == lowercase[i]) {
+			s.pop();
+			continue;
+
+		}
+		else {
+			ispalindrome = false;
+			break;
+		}
 	}
 }
 // test function #2
 // be careful with pass-by-reference
 void testpalindromequeue(stack<char> &s, queue<char> &q, string &str) {
-	int i;
 	bool ispalindrome = true;
 	str.erase(remove_if(str.begin(), str.end(), isspace), str.end());
 	// push to stack and queue
-	for (i = 0; i < str.size(); i++) {
-		s.push(str[i]);
-		q.push(str[i]);
+	string reversed;
+	reversed.resize(str.size());
+
+	for (int i = 0; i < str.size(); i++) {
+		q.push(tolower(str[i]));
+		//(str.size() - 1) - i)
+
 	}
-	for (i = 0; i < str.size(); i++) {
-		// compare first element in queue with the first(reversed) element in the stack
-		if (q.front() == s.top()) {
+
+	for (int i = str.size() - 1; i >= 0; i--) {
+		reversed[i] = tolower(str[i]);
+	}
+	for (int i = 0; i < str.size(); i++) {
+		// compare first element in queue with the first(reversed) element in the string
+		if (q.front() == reversed[i]) {
 			q.pop();
-			s.pop();
 			continue;
 		}
 		// break and set ispalindrome as false if the characters doesn't match up
@@ -111,11 +140,6 @@ void testpalindromequeue(stack<char> &s, queue<char> &q, string &str) {
 			ispalindrome = false;
 			break;
 		}
-	}
-	//deletes the stack and queue if it's not already empty
-	while (!q.empty() && !s.empty()) {
-		q.pop();
-		s.pop();
 	}
 
 }
