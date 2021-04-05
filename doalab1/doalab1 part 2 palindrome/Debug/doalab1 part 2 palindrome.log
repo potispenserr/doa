@@ -1,22 +1,22 @@
 ﻿  doalab1 part 2 palindrome.cpp
 c:\users\ruben\documents\gitgood\doa\doalab1\doalab1 part 2 palindrome\doalab1 part 2 palindrome.cpp(19): warning C4018: '<': signed/unsigned mismatch
 c:\users\ruben\documents\gitgood\doa\doalab1\doalab1 part 2 palindrome\doalab1 part 2 palindrome.cpp(27): warning C4018: '<': signed/unsigned mismatch
-c:\users\ruben\documents\gitgood\doa\doalab1\doalab1 part 2 palindrome\doalab1 part 2 palindrome.cpp(57): warning C4018: '<': signed/unsigned mismatch
-c:\users\ruben\documents\gitgood\doa\doalab1\doalab1 part 2 palindrome\doalab1 part 2 palindrome.cpp(66): warning C4018: '<': signed/unsigned mismatch
+c:\users\ruben\documents\gitgood\doa\doalab1\doalab1 part 2 palindrome\doalab1 part 2 palindrome.cpp(56): warning C4018: '<': signed/unsigned mismatch
+c:\users\ruben\documents\gitgood\doa\doalab1\doalab1 part 2 palindrome\doalab1 part 2 palindrome.cpp(65): warning C4018: '<': signed/unsigned mismatch
 c:\users\ruben\documents\gitgood\doa\doalab1\doalab1 part 2 palindrome\doalab1 part 2 palindrome.cpp(95): warning C4018: '<': signed/unsigned mismatch
-c:\users\ruben\documents\gitgood\doa\doalab1\doalab1 part 2 palindrome\doalab1 part 2 palindrome.cpp(99): warning C4018: '<': signed/unsigned mismatch
-c:\users\ruben\documents\gitgood\doa\doalab1\doalab1 part 2 palindrome\doalab1 part 2 palindrome.cpp(111): warning C4018: '<': signed/unsigned mismatch
-c:\users\ruben\documents\gitgood\doa\doalab1\doalab1 part 2 palindrome\doalab1 part 2 palindrome.cpp(115): warning C4018: '<': signed/unsigned mismatch
-c:\users\ruben\documents\gitgood\doa\doalab1\doalab1 part 2 palindrome\doalab1 part 2 palindrome.cpp(148): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-c:\users\ruben\documents\gitgood\doa\doalab1\doalab1 part 2 palindrome\doalab1 part 2 palindrome.cpp(194): warning C4244: '=': conversion from '_Rep' to 'int', possible loss of data
+c:\users\ruben\documents\gitgood\doa\doalab1\doalab1 part 2 palindrome\doalab1 part 2 palindrome.cpp(103): warning C4018: '<': signed/unsigned mismatch
+c:\users\ruben\documents\gitgood\doa\doalab1\doalab1 part 2 palindrome\doalab1 part 2 palindrome.cpp(124): warning C4018: '<': signed/unsigned mismatch
+c:\users\ruben\documents\gitgood\doa\doalab1\doalab1 part 2 palindrome\doalab1 part 2 palindrome.cpp(133): warning C4018: '<': signed/unsigned mismatch
+c:\users\ruben\documents\gitgood\doa\doalab1\doalab1 part 2 palindrome\doalab1 part 2 palindrome.cpp(160): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+c:\users\ruben\documents\gitgood\doa\doalab1\doalab1 part 2 palindrome\doalab1 part 2 palindrome.cpp(206): warning C4244: '=': conversion from '_Rep' to 'int', possible loss of data
           with
           [
               _Rep=__int64
           ]
-c:\users\ruben\documents\gitgood\doa\doalab1\doalab1 part 2 palindrome\doalab1 part 2 palindrome.cpp(201): warning C4244: '=': conversion from '_Rep' to 'int', possible loss of data
+c:\users\ruben\documents\gitgood\doa\doalab1\doalab1 part 2 palindrome\doalab1 part 2 palindrome.cpp(213): warning C4244: '=': conversion from '_Rep' to 'int', possible loss of data
           with
           [
               _Rep=__int64
           ]
-c:\users\ruben\documents\gitgood\doa\doalab1\doalab1 part 2 palindrome\doalab1 part 2 palindrome.cpp(147): warning C4101: 'c': unreferenced local variable
+c:\users\ruben\documents\gitgood\doa\doalab1\doalab1 part 2 palindrome\doalab1 part 2 palindrome.cpp(159): warning C4101: 'c': unreferenced local variable
   doalab1 part 2 palindrome.vcxproj -> C:\Users\Ruben\Documents\gitgood\doa\doalab1\Debug\doalab1 part 2 palindrome.exe

@@ -64,7 +64,8 @@ void ispalindromequeue(queue<char> q, string &str) {
  	}
 	for (int i = 0; i < str.size(); i++) {
 		// compare first element in queue with the first(reversed) element in the string
-		if (q.front() == reversed[i]) {
+		//cout << "q.front: " << q.front() << " " << "reversed: " << reversed[str.size() - 1 - i] << " " << "i: " << i << "\n";
+		if (q.front() == reversed[str.size() - 1 - i]) {
 			q.pop();
 			continue;
 		}
@@ -131,7 +132,8 @@ void testpalindromequeue(stack<char> &s, queue<char> &q, string &str) {
 	}
 	for (int i = 0; i < str.size(); i++) {
 		// compare first element in queue with the first(reversed) element in the string
-		if (q.front() == reversed[i]) {
+		//cout << "q.front: " << q.front() << " " << "reversed: " << reversed[str.size() - 1 - i] << " " << "i: " << i << "\n";
+		if (q.front() == reversed[str.size() - 1 - i]) {
 			q.pop();
 			continue;
 		}
@@ -140,6 +142,13 @@ void testpalindromequeue(stack<char> &s, queue<char> &q, string &str) {
 			ispalindrome = false;
 			break;
 		}
+	}
+	//prints out if the string is a palindrome or not
+	if (ispalindrome == true) {
+		cout << "That is a palindrome";
+	}
+	else {
+		cout << "That isn't a palindrome";
 	}
 
 }
