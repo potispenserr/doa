@@ -1,2 +1,4 @@
 ﻿  doalab1linkedlist.cpp
-  doalab1linkedlist.vcxproj -> C:\Users\Ruben\source\repos\doalab1\Debug\doalab1linkedlist.exe
+c:\users\ruben\documents\gitgood\doa\doalab1\doalab1linkedlist\doalab1linkedlist.cpp(353): warning C4101: 'credits': unreferenced local variable
+c:\users\ruben\documents\gitgood\doa\doalab1\doalab1linkedlist\doalab1linkedlist.cpp(354): warning C4101: 'grade': unreferenced local variable
+  doalab1linkedlist.vcxproj -> C:\Users\Ruben\Documents\gitgood\doa\doalab1\Debug\doalab1linkedlist.exe
