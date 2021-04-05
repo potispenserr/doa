@@ -33,20 +33,27 @@ void ispalindromestack(stack<char> s, string &str) {
 	}
 }
 
-void ispalindromequeue(stack<char> s, queue<char> q, string &str) {
+void ispalindromequeue(queue<char> q, string &str) {
 	int i;
 	bool ispalindrome = true;
 	str.erase(remove_if(str.begin(), str.end(), isspace), str.end());
 	// push to stack and queue
+	string reversed;
+	reversed.resize(str.size());
+
 	for (i = 0; i < str.size(); i++) {
-		s.push(str[i]);
-		q.push(str[i]);
+		q.push(tolower(str[i]));
+		//(str.size() - 1) - i)
+		
 	}
+
+	for (int i = str.size() - 1; i >= 0; i--) {
+		reversed[i] = tolower(str[i]);
+ 	}
 	for (i = 0; i < str.size(); i++) {
-		// compare first element in queue with the first(reversed) element in the stack
-		if (q.front() == s.top()) {
+		// compare first element in queue with the first(reversed) element in the string
+		if (q.front() == reversed[i]) {
 			q.pop();
-			s.pop();
 			continue;
 		}
 		// break and set ispalindrome as false if the characters doesn't match up
@@ -143,10 +150,10 @@ int main()
 			getline(cin, input);
 
 			start = std::chrono::high_resolution_clock::now();
-			ispalindromequeue(s, q, input);
+			ispalindromequeue(q, input);
 			finish = std::chrono::high_resolution_clock::now();
 			auto elapsedtimequeue = chrono::duration_cast<chrono::microseconds>(finish - start).count();
-			cout << " in " << elapsedtimequeue << "ms" << " with stack and queue" << endl;
+			cout << " in " << elapsedtimequeue << "ms" << " with queue only" << endl;
 
 			start = chrono::high_resolution_clock::now();
 			ispalindromestack(s, input);
@@ -182,7 +189,7 @@ int main()
 
 			}
 			cout << "Average execution time with stack only: " << totalstack / iterations << "ms" << " with " << iterations << " iterations" << endl;
-			cout << "Average execution time with stack and queue: " << totalqueue / iterations << "ms" << " with " << iterations << " iterations" << endl;
+			cout << "Average execution time with queue: " << totalqueue / iterations << "ms" << " with " << iterations << " iterations" << endl;
 
 		}
 		else if (choice == "3") {
