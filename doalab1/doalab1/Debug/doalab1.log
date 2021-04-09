@@ -1,5 +1,5 @@
-﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(391,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (doalab1.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(391,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (doalab1.vcxproj, doalab1array.vcxproj).  This can lead to incorrect clean and rebuild behavior.
   doalab1.cpp
-c:\users\ruben\source\repos\doalab1\doalab1\doalab1.cpp(183): warning C4018: '<': signed/unsigned mismatch
-c:\users\ruben\source\repos\doalab1\doalab1\doalab1.cpp(190): warning C4018: '<': signed/unsigned mismatch
-  doalab1.vcxproj -> C:\Users\Ruben\source\repos\doalab1\Debug\doalab1array.exe
+c:\users\ruben\documents\gitgood\doa\doalab1\doalab1\doalab1.cpp(365): warning C4101: 'credits': unreferenced local variable
+c:\users\ruben\documents\gitgood\doa\doalab1\doalab1\doalab1.cpp(366): warning C4101: 'grade': unreferenced local variable
+  doalab1.vcxproj -> C:\Users\Ruben\Documents\gitgood\doa\doalab1\Debug\doalab1queue.exe
