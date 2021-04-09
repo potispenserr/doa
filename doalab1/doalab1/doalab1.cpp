@@ -371,39 +371,6 @@ int main()
 	c.addstudent(1, "Bert");
 
 	
-	/*c.createnode("borj");
-	c.createnode("bor");;
-	c.createnode("b");
-	c.createnode("bq");
-	c.createnode("bw");
-	c.createnode("borjeq");
-	c.createnode("borjew");
-	c.createnode("borjee");
-	c.createnode("borjer");*/
-	/*
-	c.addcourse(1, "snusa som satan", 140.2, 740);
-	c.addcourse(10, "lägga 740n i bredställ", 240.2, 740);
-	c.addcourse(10, "Att citera Linus Torvalds angående C++", 10.2f, 4);
-	c.addcourse(10, "Att citera Linus Torvalds angående C+", 10.2f, 4);
-	c.addcourse(10, "Att citera Linus Torvalds angående C", 10.2f, 4);
-	c.addcourse(10, "Att citera Linus Torvalds angående ", 10.2f, 4);
-	c.addcourse(10, "Att citera Linus Torvalds angående", 10.2f, 4);
-	c.addcourse(10, "Att citera Linus Torvalds angåend", 10.2f, 4);
-	c.addcourse(10, "Att citera Linus Torvalds angåen", 10.2f, 4);
-	c.addcourse(10, "Att citera Linus Torvalds angåe", 10.2f, 4);
-	c.addcourse(10, "Att citera Linus Torvalds angå", 10.2f, 4);
-	c.addcourse(10, "Att citera Linus Torvalds ang", 10.2f, 4);
-	c.addcourse(10, "Att citera Linus Torvalds an", 10.2f, 4);
-	c.addcourse(10, "Att citera Linus Torvalds a", 10.2f, 4);
-	c.addcourse(10, "Att citera Linus Torvalds ", 10.2f, 4);
-	c.addcourse(10, "Att citera Linus Torvalds", 10.2f, 4);
-	c.addcourse(10, "Att citera Linus Torvald", 10.2f, 4);
-	c.addcourse(10, "Att citera Linus Torval", 10.2f, 4);
-	c.addcourse(10, "Att citera Linus Torva", 10.2f, 4);
-	c.addcourse(10, "Att citera Linus Torv", 10.2f, 4);
-	c.addcourse(10, "Att citera Linus Tor", 10.2f, 4);
-	c.addcourse(10, "Att citera Linus To", 10.2f, 4);
-	*/
 	while (true) {
 		// menu
 		cout << "1. Register course \n2. Add student \n3. Display all courses \n4. Delete student \n5. Delete course \n6. Quit" << endl;
