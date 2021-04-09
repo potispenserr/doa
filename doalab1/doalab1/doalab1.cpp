@@ -5,31 +5,145 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <stack>
 #include <chrono>
 using namespace std;
-//defines the node with coursename, credits, grade and next pointer as fields
-
-struct node
-{
-	string coursename;
-
+// node for the courses
+struct node {
+	string studentname;
 	node *next;
 };
+class Student {
+private:
+	node *front, *rear;
+public:
+	// Constructor
+	Student() {
+		top = NULL;
+	}
+	// Destructor
+	~Student() {
+		node* current = top;
+		node* next;
+
+		while (current != NULL)
+		{
+			next = current->next;
+			delete current;
+			current = next;
+		}
+		top = NULL;
+	}
+	// creates a new student node 
+	void createnode(string studentname) {
+		node *temp = new node;
+		// setting fields
+		temp->studentname = studentname;
+		temp->next = NULL;
+		if (top == NULL) {
+			top = temp;
+		}
+		else {
+			temp->next = top;
+			top = temp;
+
+		}
+
+	}
+
+	void pop() {
+		if (top == NULL) {
+			cout << "There is nothing to pop" << "\n";
+		}
+		else {
+			cout << "Popped: " << top->studentname << "\n";
+			node* temp = top;
+			top = top->next;
+			free(temp);
+		}
+	}
+	// prints out all the courses of the linked list
+	void display() {
+		node *head;
+		node *temp;
+		head = top;
+		int count = 1;
+		while (head != NULL) {
+			cout << "\t" << count << ". " << "Student: " << head->studentname << endl;
+			cout << endl;
+			temp = head;
+			head = head->next;
+			count++;
+
+		}
+	}
+	//test 
+	bool findstudent(string studentname) {
+		node *head;
+		node *temp;
+		head = top;
+		int pos = 0;
+		while (head != NULL) {
+			if (studentname == head->studentname) {
+				cout << "found student" << endl;
+
+				return true;
+			}
+			else {
+				temp = head;
+				head = head->next;
+			}
+		}
+		return false;
+
+	}
+	// deletes a student with given index
+	void deletestudent(string studentname) {
+		node* head = top;
+		cout << studentname << "\n";
+
+		if (findstudent(studentname) == false) {
+			cout << "Student not found" << "\n";
+			return;
+
+		}
+		else {
+			while (!top == NULL) {
+				head = top;
+				if (head->studentname == studentname) {
+					pop();
+					break;
+				}
+				else {
+					pop();
+				}
+
+			}
+
+		}
+	}
+
+};
+// node for students
+struct nodest {
+	string coursename;
+	Student st;
+	nodest *next;
+};
+
 class Course {
 private:
-	// head and tail for the node struct
-	node *head, *tail;
+	nodest *head, *tail;
 public:
-	//constructor
+	// Constructor 
 	Course() {
 		head = NULL;
 		tail = NULL;
 	}
-	// destructor for the Course class
-	// just deletes all the elements in the linked list
+	// Destructor 
 	~Course() {
-		node* current = head;
-		node* next;
+		nodest* current = head;
+		nodest* next;
 
 		while (current != NULL)
 		{
@@ -39,114 +153,189 @@ public:
 		}
 		head = NULL;
 	}
-	// creates a new course node
-	void createnode(string coursename, float credits, int grade) {
-		node *temp = new node;
-		// sets the fields in the node
+	// includes the Course class
+	Student st;
+	// creates a new node with the coursename and students
+	void createnode(string coursename) {
+		nodest *temp = new nodest;
 		temp->coursename = coursename;
-		temp->credits = credits;
+		temp->st;
 		temp->next = NULL;
-		//checks if the linked list is empty 
 		if (head == NULL)
 		{
 			head = temp;
 			tail = temp;
 			temp = NULL;
 		}
-		// if it isn't it sets the tail as the new node
 		else
 		{
 			tail->next = temp;
 			tail = temp;
 		}
 	}
-	// prints out all the courses in the nodes
-	void display() {
-		node *temp;
-		// sets the temp pointer to head
+	//loops through the student linked list and prints all the student names with courses
+	void displaycourse() {
+		nodest *temp;
 		temp = head;
-		// starts the count variable with the value 1
 		int count = 1;
-		// loops through the linked list while printing out all the courses
 		while (temp != NULL)
 		{
-			//starts printing the course number and course name
-			cout << "\t" << count << ". " << "Course: " << temp->coursename << endl;
-			cout << "\t" << "Credit: " << temp->credits << endl;
-			cout << endl;
-			temp = temp->next;
-			//increments the counter
+			cout << count << ". " << temp->coursename << endl;
+			temp->st.display();
 			count++;
-			
+			temp = temp->next;
+
 		}
 	}
-	// returns the index for a given course
-	int findcourse(string coursename) {
-		// creates a pointer and assigns it to head
-		node *temp;
+	//loops through the student linked list and prints all the student names 
+	void displaynames() {
+		nodest *temp;
 		temp = head;
-		int pos = 0;
-		//traverses the linked list until it finds the course incrementing pos every iteration
-		while (temp != NULL) {	
-			if (coursename == temp->coursename) {
-				break;
-			}
-			else {
-				pos++;
-				temp = temp->next;
-			}	
+		int counter = 1;
+		while (temp != NULL)
+		{
+			cout << counter << ". " << "Course: " << temp->coursename << endl;
+			temp = temp->next;
+			counter++;
 		}
-		// returns pos as the index for the course
-		return pos;
 	}
-
-	void deletecourse(int courseindex) {
-		node *current;
-		node *previous;
-		current = head;
-		previous = head;
-
-		// checks if head is null
+	//finds and prints all the student names associated with the course provided
+	void finddisplay(int courseindex) {
+		nodest *temp;
+		temp = head;
+		//error checking
 		if (head == NULL) {
 			cout << "Database is empty" << endl;
 			return;
 		}
-		//gets courseindex from the user and subtracts 1 to get the index
-		int pos = courseindex - 1;
-		
-		if (pos >= 1) {
-			//traverses down the linked list
-			for (int i = 1; i <= pos; i++)
+		// gets the position of the student record from the findstudent method
+		int pos = courseindex;
+
+		if (pos >= 0) {
+			//iterates through the linked list until it hits the position specified
+			for (int i = 1; i < pos; i++)
 			{
+				temp = temp->next;
+				if (temp == NULL) {
+					cout << "Course not found" << endl;
+					return;
+				}
+			}
+			// if it goes through the list and temp isn't nullptr 
+			// it displays all the courses for that student
+			temp->st.display();
+
+		}
+		else {
+			cout << "Good try but that's not going to work (Course not found)" << endl;
+		}
+
+	}
+	// add student to course
+	void addstudent(int courseindex, string studentname) {
+		nodest *temp;
+		temp = head;
+		//error checking
+		if (head == NULL) {
+			cout << "Database is empty" << endl;
+			return;
+		}
+		// gets the position of the student record from the courseindex parameter
+		int pos = courseindex;
+
+		if (pos >= 0) {
+			//iterates through the linked list until it hits the position specified
+			for (int i = 1; i < pos; i++)
+			{
+				temp = temp->next;
+				//if temp is null then it's safe to say that the course number doesn't exist
+				if (temp == NULL) {
+					cout << "course not found" << endl;
+					return;
+				}
+			}
+			//when temp is at the specified position in the linked list it adds the student
+			temp->st.createnode(studentname);
+
+		}
+		//for when the user tries to break everything
+		else {
+			cout << "Good try but that's not going to work (course not found)" << endl;
+		}
+	}
+	// deletes a single student
+	void deletestudent(int courseindex, string studentname) {
+		nodest *temp;
+		temp = head;
+		//error checking
+		if (head == NULL) {
+			cout << "Database is empty" << endl;
+			return;
+		}
+		// gets the position of the student record from the courseindex parameter
+		int pos = courseindex;
+
+		if (pos >= 0) {
+			//iterates through the linked list until it hits the position specified
+			for (int i = 1; i < pos; i++) {
+				temp = temp->next;
+				if (temp == NULL) {
+					cout << "course not found" << endl;
+					return;
+				}
+			}
+			// when temp is at the right student in the linked list it deletes the student
+			temp->st.deletestudent(studentname);
+
+		}
+		//for when the user tries to break everything
+		else {
+			cout << "Good try but that's not going to work (course not found)" << endl;
+		}
+
+	}
+	// deletes the course from the linked list
+	void deletecourse(int courseindex) {
+		nodest *current;
+		nodest *previous;
+		current = head;
+		previous = head;
+		//error checking
+		if (head == NULL) {
+			cout << "Database is empty" << endl;
+			return;
+		}
+		// gets the position of the student record from the courseindex parameter
+		int pos = courseindex;
+
+		if (pos > 1) {
+			//iterates through the linked list until it hits the position specified
+			for (int i = 1; i < pos; i++) {
 				previous = current;
 				current = current->next;
+				// if it iterates through the linked list but current is nullptr it stops
 				if (current == NULL) {
 					cout << "Course not found" << endl;
 					return;
 				}
 			}
-			if (current == NULL) {
-				cout << "Course not found" << endl;
-				return;
-			}
+			//if it iterates through the list and current doesn't become nullptr
+			//the previous next pointer becomes the current's
+			previous->next = current->next;
 
-			else {
-				previous->next = current->next;
-			}
-			
 		}
 		else {
-			// deletes the course
+			//here it deletes the course
 			head = head->next;
 			delete current;
-			
+
 		}
-		
+
 	}
 
-	// just checks if head is empy and if it is the database is empty
+	//  checks if the database is empty or not
 	bool emptydb() {
-		node* temp;
+		nodest* temp;
 		temp = head;
 		if (temp == NULL) {
 			return true;
@@ -157,206 +346,177 @@ public:
 	}
 };
 
-class Student {
-private:
-	// the studentname for each object
-	string studentname;
-public:
-	//constructors
-	Student() {
-		studentname = "";
-	}
-	Student(string s) {
-		studentname = s;
-	}
-	Course c;
-	//get and set
-	string  getname() { return studentname; }
-	void setname(string s) { studentname = s; }
-
-};
-// only prints the names registered
-void printnames( vector<Student>& students) {
-	for (int i = 0; i < students.size(); i++) {
-		cout << i+1 << ": " << students[i].getname() << endl;
-	}
-}
-
-//prints the name and courses for every student
-void printnamecourse(vector<Student>& students) {
-	for (int i = 0; i < students.size(); i++) {
-		cout << i + 1 << ": " << students[i].getname() << endl;
-		students[i].c.display();
-	}
-}
-
-// gets input from the user to specify which student
-// i put it as a function to avoid copy-pasting it everywhere
-int getstudentindex(vector<Student>& students) {
-	int intinput;
-	cout << "Input which student number you want to change: ";
-	cin >> intinput;
-	return intinput - 1;
-
-}
-
-void addstudent(string &studentname, vector<Student> &students, int &vecsize) {
-	vecsize++;
-	//resizes the vector with it's size + 1
-	students.resize(vecsize);
-	//sets the new student object name to the user input
-	//vecsize - 1 is the index for the new object 
-	students[vecsize - 1] = Student();
-	students[vecsize - 1].setname(studentname);
-
-}
 
 int main()
 {
-	//Initializing vector array of type Student class
-	vector<Student> students;
-	//Initializing userinputs
+	//initializing the class object
+	Course c;
+	//initializing the user inputs
 	string input;
 	int intinput;
 	string studentname;
 	string coursename;
 	float credits;
 	int grade;
-	//initializing size of vector and studentindex here instead of later
-	int vecsize = 1;
-	int studentindex;
+	// test
 
-	students.resize(1);
-
-	
-
+	c.createnode("Intro to bullshiting");
+	c.addstudent(1, "Steffan");
+	c.addstudent(1, "Bert");
+	/*c.createnode("borj");
+	c.createnode("bor");;
+	c.createnode("b");
+	c.createnode("bq");
+	c.createnode("bw");
+	c.createnode("borjeq");
+	c.createnode("borjew");
+	c.createnode("borjee");
+	c.createnode("borjer");*/
+	/*
+	c.addcourse(1, "snusa som satan", 140.2, 740);
+	c.addcourse(10, "lägga 740n i bredställ", 240.2, 740);
+	c.addcourse(10, "Att citera Linus Torvalds angående C++", 10.2f, 4);
+	c.addcourse(10, "Att citera Linus Torvalds angående C+", 10.2f, 4);
+	c.addcourse(10, "Att citera Linus Torvalds angående C", 10.2f, 4);
+	c.addcourse(10, "Att citera Linus Torvalds angående ", 10.2f, 4);
+	c.addcourse(10, "Att citera Linus Torvalds angående", 10.2f, 4);
+	c.addcourse(10, "Att citera Linus Torvalds angåend", 10.2f, 4);
+	c.addcourse(10, "Att citera Linus Torvalds angåen", 10.2f, 4);
+	c.addcourse(10, "Att citera Linus Torvalds angåe", 10.2f, 4);
+	c.addcourse(10, "Att citera Linus Torvalds angå", 10.2f, 4);
+	c.addcourse(10, "Att citera Linus Torvalds ang", 10.2f, 4);
+	c.addcourse(10, "Att citera Linus Torvalds an", 10.2f, 4);
+	c.addcourse(10, "Att citera Linus Torvalds a", 10.2f, 4);
+	c.addcourse(10, "Att citera Linus Torvalds ", 10.2f, 4);
+	c.addcourse(10, "Att citera Linus Torvalds", 10.2f, 4);
+	c.addcourse(10, "Att citera Linus Torvald", 10.2f, 4);
+	c.addcourse(10, "Att citera Linus Torval", 10.2f, 4);
+	c.addcourse(10, "Att citera Linus Torva", 10.2f, 4);
+	c.addcourse(10, "Att citera Linus Torv", 10.2f, 4);
+	c.addcourse(10, "Att citera Linus Tor", 10.2f, 4);
+	c.addcourse(10, "Att citera Linus To", 10.2f, 4);
+	*/
 	while (true) {
-		cout << "1. Add student \n2. Register course \n3. Display all students \n4. Delete course \n5. Delete student record \n6. Quit" << endl;
+		// menu
+		cout << "1. Register course \n2. Add student \n3. Display all courses \n4. Delete student \n5. Delete course \n6. Quit" << endl;
 		cin >> input;
-		//Adding students
+		//register course
 		if (input == "1") {
-			cout << "Input student name: ";
-			cin >> input;
-			//increases the vecsize variable by 1
-			
+			// takes input and adds the course to the linked list
+			cout << "Input course name: ";
+			cin.ignore();
+			getline(cin, coursename);
+			c.createnode(coursename);
 		}
+		//add student
 		else if (input == "2") {
-			//error checking
-			if (vecsize == 0) {
-				cout << "No student records found" << endl;
+			// error checking
+			if (c.emptydb() == true) {
+				cout << "No course records found" << endl;
 				continue;
 			}
 			else {
-				//prints out all the names 
-				printnames(students);
-				//gets the index for the specific student from getstudentindex with students vector as a reference
-				studentindex = getstudentindex(students);
-				//input for the course name, credit and grade
-				cout << "Input course name: ";
+				// prints all the courses
+				c.displaynames();
+				cout << "Input the course number you want to change: ";
+				cin >> intinput;
+				// takes input on the student name
+				cout << "Input student name: ";
 				cin.ignore();
-				getline(cin, coursename);
-				cout << "Input course credit: ";
-				cin >> credits;
-				//creates a new course node with the details provided
-				students[studentindex].c.createnode(coursename, credits, grade);
+				getline(cin, studentname);
+				// adds the course
+				c.addstudent(intinput, studentname);
 			}
 		}
+		//display courses
 		else if (input == "3") {
-			//error checking
-			if (vecsize == 0) {
-				cout << "No student records found" << endl;
+			// error checking
+			if (c.emptydb() == true) {
+				cout << "No courses found" << endl;
 				continue;
 			}
-			// just prints out the students with their associated courses
 			else {
-				printnamecourse(students);
+				// just prints out all the courses with their associated students 
+				c.displaycourse();
 			}
+
 		}
+		// deletes a single student from a course
 		else if (input == "4") {
-			//error checking
-			if (vecsize == 0) {
+			// error checking
+			if (c.emptydb() == true) {
 				cout << "No student records found" << endl;
 				continue;
 			}
 			else {
-				//more error checking
-				printnames(students);
-				//gets the student index
-				studentindex = getstudentindex(students);
-				if (students[studentindex].c.emptydb() == true) {
-					cout << "No courses registered" << endl;
-					continue;
-				}
-				else {
-					//prints out all the specific student's courses
-					students[studentindex].c.display();
-					cout << "What course number do you want to delete? ";
-					cin >> intinput;
-					//the courses are numbered and stored in order so the user only has to input the number
-					students[studentindex].c.deletecourse(intinput);
-				}
+				//prints all course names 
+				c.displaynames();
+				cout << "Input the course number you want to change: ";
+				//takes input for the course the user want to change
+				cin >> intinput;
+				//prints the specific courses students
+				c.finddisplay(intinput);
+				cout << "What student do you want to delete? ";
+				// takes input on which student number the user wants to delete
+				cin.ignore();
+				getline(cin, studentname);
+				// deletes the student
+				c.deletestudent(intinput, studentname);
 			}
 		}
+		// deletes course record
 		else if (input == "5") {
 			// error checking
-			if (vecsize == 0) {
-				cout << "No student records found" << endl;
+			if (c.emptydb() == true) {
+				cout << "No courses found" << endl;
 				continue;
 			}
 			else {
-				//prints all the students 
-				printnames(students);
-				cout << "Input which student number you want to delete: ";
+				//prints all course names
+				c.displaynames();
+				cout << "Input which course number do you want to delete: ";
 				cin >> intinput;
-				// decrements the userinput by 1 to get the index for the student
-				intinput--;
-				//calls the destructor for the student specified
-				
+				//takes input for course and deletes the course 
+				c.deletecourse(intinput);
 			}
-
 		}
-		// quits
+		//quits
 		else if (input == "6") {
 			break;
 		}
 		else if (input == "7") {
-			//clocks the time
-			auto start = chrono::high_resolution_clock::now();
-			students[0].setname("borjex");
-			auto finish = chrono::high_resolution_clock::now();
+			// timers
+			auto start = std::chrono::high_resolution_clock::now();
+			c.createnode("borjex");
+			auto finish = std::chrono::high_resolution_clock::now();
 			chrono::duration<double> elapsed = finish - start;
 			cout << "Elapsed add: " << elapsed.count() << "s\n";
 
-
 			start = std::chrono::high_resolution_clock::now();
-			students[0].c.createnode("how to be fast as fuck boi", 10.3f, 3);
+			//c.addcourse(1, "how to be fast as fuck boi", 10.3f, 3);
 			finish = std::chrono::high_resolution_clock::now();
 			elapsed = finish - start;
 			cout << "Elapsed add course: " << elapsed.count() << "s\n";
 
 			start = std::chrono::high_resolution_clock::now();
-			students[0].c.deletecourse(0);
+			c.deletestudent(1, "borjex");
 			finish = std::chrono::high_resolution_clock::now();
 			elapsed = finish - start;
-			cout << "Elapsed remove course: " << elapsed.count() << "s\n";
+			cout << "Elapsed remove student: " << elapsed.count() << "s\n";
 
 			start = std::chrono::high_resolution_clock::now();
-			// decrements the vector size by 1 
-			vecsize--;
-			// removes the student specified from the vector with the index provided
-			students.erase(students.begin() + 0);
-			finish = chrono::high_resolution_clock::now();
+			c.deletecourse(1);
+			finish = std::chrono::high_resolution_clock::now();
 			elapsed = finish - start;
-			cout << "Elapsed remove student " << elapsed.count() << "s\n";
+			cout << "Elapsed remove course " << elapsed.count() << "s\n";
 
 		}
-		 //if the user didn't type in something valid
 		else {
 			cout << "Invalid input" << endl;
 		}
 	}
 
-    
+
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu

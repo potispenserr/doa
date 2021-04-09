@@ -1,4 +1,5 @@
-﻿  doalab1linkedlist.cpp
-c:\users\ruben\documents\gitgood\doa\doalab1\doalab1linkedlist\doalab1linkedlist.cpp(353): warning C4101: 'credits': unreferenced local variable
-c:\users\ruben\documents\gitgood\doa\doalab1\doalab1linkedlist\doalab1linkedlist.cpp(354): warning C4101: 'grade': unreferenced local variable
-  doalab1linkedlist.vcxproj -> C:\Users\Ruben\Documents\gitgood\doa\doalab1\Debug\doalab1linkedlist.exe
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(391,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (doalab1linkedlist.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  doalab1linkedlist.cpp
+c:\users\ruben\documents\gitgood\doa\doalab1\doalab1linkedlist\doalab1linkedlist.cpp(359): warning C4101: 'credits': unreferenced local variable
+c:\users\ruben\documents\gitgood\doa\doalab1\doalab1linkedlist\doalab1linkedlist.cpp(360): warning C4101: 'grade': unreferenced local variable
+  doalab1linkedlist.vcxproj -> C:\Users\Ruben\Documents\gitgood\doa\doalab1\Debug\doalab1stack.exe

@@ -143,14 +143,6 @@ void testpalindromequeue(stack<char> &s, queue<char> &q, string &str) {
 			break;
 		}
 	}
-	//prints out if the string is a palindrome or not
-	if (ispalindrome == true) {
-		cout << "That is a palindrome";
-	}
-	else {
-		cout << "That isn't a palindrome";
-	}
-
 }
 
 int main()
