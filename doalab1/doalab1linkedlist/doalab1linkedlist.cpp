@@ -8,7 +8,7 @@
 #include <stack>
 #include <chrono>
 using namespace std;
-// node for the courses
+// node for the students
 struct node {
 	string studentname;
 	node *next;
@@ -34,7 +34,7 @@ public:
 		}
 		top = NULL;
 	}
-	// creates a new student node 
+	// creates a new student node on the stack
 	void createnode(string studentname) {
 		node *temp = new node;
 		// setting fields
@@ -50,7 +50,7 @@ public:
 		}
 
 	}
-
+	// deletes a student from the top of the stack
 	void pop() {
 		if (top == NULL) {
 			cout << "There is nothing to pop" << "\n";
@@ -62,11 +62,10 @@ public:
 			free(temp);
 		}
 	}
-	// prints out all the courses of the linked list
+	// prints out all the students of the stack
 	void display() {
 		node *head;
 		head = top;
-		int count = 1;
 		while (head != NULL) {
 			if (head->next == NULL) {
 				cout << " " << head->studentname;
@@ -75,11 +74,10 @@ public:
 				cout << " " << head->studentname << ",";
 			}
 			head = head->next;
-			count++;
 
 		}
 	}
-
+	//prints a modified display for the delete screen
 	void deletedisplay() {
 		node *head;
 		head = top;
@@ -98,7 +96,7 @@ public:
 		cout << endl;
 
 	}
-	//test 
+	//checks if studentname is in the stack 
 	bool findstudent(string studentname) {
 		node *head;
 		node *temp;
@@ -118,7 +116,7 @@ public:
 		return false;
 
 	}
-	// deletes a student with given index
+	// goes through the stack and deletes a student with given name
 	void deletestudent(string studentname) {
 		node* head = top;
 		cout << studentname << "\n";
@@ -145,7 +143,7 @@ public:
 	}
 
 };
-// node for students
+// node for courses
 struct nodest {
 	string coursename;
 	Student st;
@@ -174,8 +172,6 @@ public:
 		}
 		head = NULL;
 	}
-	// includes the Course class
-	Student st;
 	// creates a new node with the coursename and students
 	void createnode(string coursename) {
 		nodest *temp = new nodest;
@@ -194,7 +190,7 @@ public:
 			tail = temp;
 		}
 	}
-	//loops through the student linked list and prints all the student names with courses
+	//loops through the course linked list and prints all the courses with student names
 	void displaycourse() {
 		nodest *temp;
 		temp = head;
@@ -209,7 +205,7 @@ public:
 
 		}
 	}
-	//loops through the student linked list and prints all the student names 
+	//loops through the course linked list and prints all the courses 
 	void displaynames() {
 		nodest *temp;
 		temp = head;
@@ -230,7 +226,6 @@ public:
 			cout << "Database is empty" << endl;
 			return;
 		}
-		// gets the position of the student record from the findstudent method
 		int pos = courseindex;
 
 		if (pos >= 0) {
@@ -343,7 +338,7 @@ public:
 			}
 			//if it iterates through the list and current doesn't become nullptr
 			//the previous next pointer becomes the current's
-				previous->next = current->next;
+			previous->next = current->next;
 
 		}
 		else {
@@ -414,7 +409,7 @@ int main()
 				cout << "Input student name: ";
 				cin.ignore();
 				getline(cin, studentname);
-				// adds the course
+				// adds the student
 				c.addstudent(intinput, studentname);
 			}
 		}
@@ -470,30 +465,34 @@ int main()
 				c.deletecourse(intinput);
 			}
 		}
-		//quits
+		//quit
 		else if (input == "6") {
 			break;
 		}
+		//secret benchmark option
 		else if (input == "7") {
-			// timers
+			// add course test
 			auto start = std::chrono::high_resolution_clock::now();
 			c.createnode("Intro to Quantum Immortality");
 			auto finish = std::chrono::high_resolution_clock::now();
 			chrono::duration<double> elapsed = finish - start;
 			cout << "Elapsed add course: " << elapsed.count() << "s\n";
 
+			//add student test
 			start = std::chrono::high_resolution_clock::now();
 			c.addstudent(2, "Steffe Jannson");
 			finish = std::chrono::high_resolution_clock::now();
 			elapsed = finish - start;
 			cout << "Elapsed add student: " << elapsed.count() << "s\n";
 
+
+			//remove student test
 			start = std::chrono::high_resolution_clock::now();
 			c.deletestudent(2, "Steffe Jannson");
 			finish = std::chrono::high_resolution_clock::now();
 			elapsed = finish - start;
-			cout << "Elapsed remove remove student " << elapsed.count() << "s\n";
-
+			cout << "Elapsed remove student " << elapsed.count() << "s\n";
+			//remove course test
 			start = std::chrono::high_resolution_clock::now();
 			c.deletecourse(2);
 			finish = std::chrono::high_resolution_clock::now();

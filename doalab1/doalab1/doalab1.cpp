@@ -8,7 +8,7 @@
 #include <stack>
 #include <chrono>
 using namespace std;
-// node for the courses
+// node for the student
 struct node {
 	string studentname;
 	node *next;
@@ -36,7 +36,7 @@ public:
 		front = NULL;
 		rear = NULL;
 	}
-	// creates a new student node 
+	// creates a new student node on the queue
 	void createnode(string studentname) {
 		node *temp = new node;
 		// setting fields
@@ -53,7 +53,7 @@ public:
 		}
 
 	}
-
+	// deletes a student from the front of the queue
 	void pop() {
 		if (front == NULL) {
 			cout << "There is nothing to pop" << "\n";
@@ -65,7 +65,7 @@ public:
 			free(temp);
 		}
 	}
-	// prints out all the courses of the linked list
+	// prints out all the students of the queue
 	void display() {
 		node *temp;
 		temp = front;
@@ -83,7 +83,7 @@ public:
 
 		}
 	}
-	//test 
+	//checks if studentname is in the stack  
 	bool findstudent(string studentname) {
 		node *temp;
 		temp = front;
@@ -101,7 +101,7 @@ public:
 		return false;
 
 	}
-	// deletes a student with given index
+	// goes through the queue and deletes a student with given name
 	void deletestudent(string studentname) {
 		node* temp = front;
 		cout << studentname << "\n";
@@ -128,7 +128,7 @@ public:
 	}
 
 };
-// node for students
+// node for courses
 struct nodest {
 	string coursename;
 	Student st;
@@ -157,8 +157,6 @@ public:
 		}
 		head = NULL;
 	}
-	// includes the Course class
-	Student st;
 	// creates a new node with the coursename and students
 	void createnode(string coursename) {
 		nodest *temp = new nodest;
@@ -177,7 +175,7 @@ public:
 			tail = temp;
 		}
 	}
-	//loops through the student linked list and prints all the student names with courses
+	//loops through the course linked list and prints all the courses with student names
 	void displaycourse() {
 		nodest *temp;
 		temp = head;
@@ -193,7 +191,7 @@ public:
 
 		}
 	}
-	//loops through the student linked list and prints all the student names 
+	//loops through the course linked list and prints all the courses
 	void displaynames() {
 		nodest *temp;
 		temp = head;
@@ -214,7 +212,6 @@ public:
 			cout << "Database is empty" << endl;
 			return;
 		}
-		// gets the position of the student record from the findstudent method
 		int pos = courseindex;
 
 		if (pos >= 0) {
@@ -246,7 +243,7 @@ public:
 			cout << "Database is empty" << endl;
 			return;
 		}
-		// gets the position of the student record from the courseindex parameter
+		// gets the position of the course record from the courseindex parameter
 		int pos = courseindex;
 
 		if (pos >= 0) {
@@ -290,7 +287,7 @@ public:
 					return;
 				}
 			}
-			// when temp is at the right student in the linked list it deletes the student
+			// when temp is at the right course in the linked list it deletes the student
 			temp->st.deletestudent(studentname);
 
 		}
@@ -311,7 +308,7 @@ public:
 			cout << "Database is empty" << endl;
 			return;
 		}
-		// gets the position of the student record from the courseindex parameter
+		// gets the position of the course record from the courseindex parameter
 		int pos = courseindex;
 
 		if (pos > 1) {
