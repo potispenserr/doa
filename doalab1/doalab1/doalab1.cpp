@@ -83,6 +83,25 @@ public:
 
 		}
 	}
+
+	void deletedisplay() {
+		node *temp;
+		temp = front;
+		int count = 1;
+		while (temp != NULL) {
+			if (temp->next == NULL) {
+				cout << " " << temp->studentname;
+			}
+			else {
+				cout << " " << temp->studentname << ",";
+			}
+			temp = temp->next;
+			count++;
+
+		}
+		cout << endl;
+
+	}
 	//checks if studentname is in the stack  
 	bool findstudent(string studentname) {
 		node *temp;
@@ -226,7 +245,7 @@ public:
 			}
 			// if it goes through the list and temp isn't nullptr 
 			// it displays all the courses for that student
-			temp->st.display();
+			temp->st.deletedisplay();
 
 		}
 		else {
