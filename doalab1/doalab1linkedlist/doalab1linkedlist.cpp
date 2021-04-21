@@ -373,8 +373,6 @@ int main()
 	int intinput;
 	string studentname;
 	string coursename;
-	float credits;
-	int grade;
 	// test
 	
 	c.createnode("Intro to bullshiting");

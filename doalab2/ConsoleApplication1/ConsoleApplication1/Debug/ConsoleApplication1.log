@@ -1,0 +1,4 @@
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(391,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (lab2 part 1.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  ConsoleApplication1.cpp
+c:\users\ruben\documents\gitgood\doa\doalab2\consoleapplication1\consoleapplication1\consoleapplication1.cpp(73): warning C4018: '<': signed/unsigned mismatch
+  ConsoleApplication1.vcxproj -> C:\Users\Ruben\Documents\gitgood\doa\doalab2\ConsoleApplication1\Debug\linearprobe.exe
