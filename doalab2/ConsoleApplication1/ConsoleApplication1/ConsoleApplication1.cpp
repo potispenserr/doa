@@ -5,6 +5,7 @@
 #include <vector>
 #include <string>
 #include <chrono>
+#include <cstdlib>
 class hashNode {
 public:
 	int key;
@@ -29,7 +30,7 @@ public:
 
 
 	LinearProb(int hashfunctionInit) {
-		for (int i = 0; i < 10; i++) {
+		for (int i = 0; i < 10000; i++) {
 			hashTable.push_back(hashNode(NULL, "", -1));
 			//hashTable.push_back(hashNode(i, "plenty of hash" + i));
 			hashfunction = hashfunctionInit;
@@ -39,13 +40,14 @@ public:
 	void insert(int inKey, std::string inValue) {
 		int hash = hashkey(inKey) % hashTable.size();
 		int starthash = hash;
+		int counter = 1;
 		if (hashTable[hash].key == NULL || hashTable[hash].key == -1) {
 			hashTable[hash].key = inKey;
 			hashTable[hash].value = inValue;
 			hashTable[hash].hashIndex = starthash;
 		}
 		else {
-			int counter = 1;
+			
 			hash = (hashkey(inKey) + counter) % hashTable.size();
 			while (hash != starthash) {
 				if (hashTable[hash].key == NULL || hashTable[hash].key == -1) {
@@ -89,11 +91,12 @@ public:
 
 int main()
 {
-	LinearProb lin(6);
+	LinearProb lin(12000);
 	std::string strinput;
+	srand(time(0));
 	int intinput;
 	while (true) {
-		std::cout << "1. Insert  \n2. Print database \n3. Benchmark LinearProbe no load\n4. Benchmark LinearProbe max load \n5. Benchmark another hash no load \n6. Benchmark another hash max load" << "\n";
+		std::cout << "1. Insert  \n2. Print database \n3. Benchmark LinearProbe max random load\n";
 		std::getline(std::cin, strinput);
 		if (strinput == "1") {
 			std::cout << "Input key:";
@@ -108,60 +111,23 @@ int main()
 			lin.printDatabase();
 
 		}
-		if (strinput == "3") {
-			auto start = std::chrono::high_resolution_clock::now();
-			lin.insert(15, "fun times");
-			auto finish = std::chrono::high_resolution_clock::now();
-			std::chrono::duration<double> elapsed = finish - start;
-			std::cout << "Elapsed add no load factor: " << elapsed.count() << "s\n";
-
-		}
 		if (strinput == "4") {
-			lin.insert(1, "fun times");
-			lin.insert(2, "fun times");
-			lin.insert(3, "fun times");
-			lin.insert(4, "fun times");
-			lin.insert(5, "fun times");
-			lin.insert(6, "fun times");
-			lin.insert(7, "fun times");
-			lin.insert(8, "fun times");
-			lin.insert(9, "fun times");
+			for (int i = 0; i < 9999; i++) {
+				if (i == 0) {
+					lin.insert((rand()), "fun times");
+				}
+				else {
+					lin.insert(i, "fun times");
+				}
+				
+			}
 
 			auto start = std::chrono::high_resolution_clock::now();
-			lin.insert(18, "not so fun times");
+			lin.insert(rand(), "not so fun times");
 			auto finish = std::chrono::high_resolution_clock::now();
 			std::chrono::duration<double> elapsed = finish - start;
 			std::cout << "Elapsed add max load factor: " << elapsed.count() << "s\n";
 			
-
-		}
-		if (strinput == "5") {
-			lin.changeHash(4);
-			auto start = std::chrono::high_resolution_clock::now();
-			lin.insert(15, "fun times");
-			auto finish = std::chrono::high_resolution_clock::now();
-			std::chrono::duration<double> elapsed = finish - start;
-			std::cout << "Elapsed add no load factor: " << elapsed.count() << "s\n";
-
-		}
-		if (strinput == "6") {
-			lin.changeHash(7);
-			lin.insert(1, "fun times");
-			lin.insert(2, "fun times");
-			lin.insert(3, "fun times");
-			lin.insert(4, "fun times");
-			lin.insert(5, "fun times");
-			lin.insert(6, "fun times");
-			lin.insert(7, "fun times");
-			lin.insert(8, "fun times");
-			lin.insert(9, "fun times");
-
-			auto start = std::chrono::high_resolution_clock::now();
-			lin.insert(14, "not so fun times");
-			auto finish = std::chrono::high_resolution_clock::now();
-			std::chrono::duration<double> elapsed = finish - start;
-			std::cout << "Elapsed add max load factor: " << elapsed.count() << "s\n";
-
 
 		}
 
