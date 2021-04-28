@@ -1,4 +1,4 @@
 ﻿  main.cpp
-C:\Users\xdbgzdbgf\Documents\git\doa\doalab2\ConsoleApplication1\HopScotch\main.cpp(37,21): warning C4018: '<': signed/unsigned mismatch
-C:\Users\xdbgzdbgf\Documents\git\doa\doalab2\ConsoleApplication1\HopScotch\main.cpp(54,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\xdbgzdbgf\Documents\git\doa\doalab2\ConsoleApplication1\HopScotch\main.cpp(121,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\xdbgzdbgf\Documents\git\doa\doalab2\ConsoleApplication1\HopScotch\main.cpp(140,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
   HopScotch.vcxproj -> C:\Users\xdbgzdbgf\Documents\git\doa\doalab2\ConsoleApplication1\Debug\HopScotch.exe

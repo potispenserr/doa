@@ -28,7 +28,7 @@ class HopScotchProbe {
 private:
 	std::vector<hashNode> hashTable;
 	int hopLimit = 4;
-	int tableSize = 10000;
+	int tableSize = 15000;
 
 public:
 
@@ -41,7 +41,7 @@ public:
 	void insert(int inKey, std::string inValue) {
 		int hash = hashkey(inKey) % tableSize;
 		int linearCounter = 1;
-		int startHash = hashkey(inKey) % tableSize;
+		int startHash = hash;
 
 		// check if empty, add
 		if (hashTable[hash].key == NULL)
@@ -50,28 +50,58 @@ public:
 			hashTable[hash].value = inValue;
 			hashTable[hash].originalSpot = startHash;
 			hashTable[hash].hopSlot[0] = 1; // inserted in first slot from startHash
+
+			std::cout << "Insertion succeeded!\n Hash element: " << hashTable[hash].key << " | " << hashTable[hash].value << std::endl;
 		}
 
-		// else, linearprobe until hopLimit
+		// else, linearprobe until empti slått
 		else {
 			hash = hashkey(inKey + linearCounter) % tableSize;
-			for (int i = 0; i < hopLimit; i++) {
-				if (hashTable[hash].key == NULL) {
-					hashTable[hash].key = inKey;
-					hashTable[hash].value = inValue;
-					hashTable[hash].hopSlot[linearCounter - 1] = 1; // -1 since linearCounter starts at 1
-					return;
-				}
+			while (hashTable[hash].key != NULL && hash != startHash) {
 				linearCounter++;
 				hash = hashkey(inKey + linearCounter) % tableSize;
 			}
+			if (hash == startHash) {
+				std::cout << "hash table is full.\n";
+				return;
+			}
+
+			// found empty slot
+			int emptySlot = hash;
+			while (emptySlot - startHash >= hopLimit) {
+				for (int i = 1; i < hopLimit; i++) {
+					if (emptySlot - hashTable[hash - (hopLimit - i)].originalSpot < hopLimit) {
+						hashTable[emptySlot].key = hashTable[hash - (hopLimit - i)].key;
+						hashTable[emptySlot].value = hashTable[hash - (hopLimit - i)].value;
+						hashTable[emptySlot].originalSpot = hashTable[hash - (hopLimit - i)].originalSpot;
+
+						hashTable[hash - (hopLimit - i)].key = NULL;
+						hashTable[hash - (hopLimit - i)].value = "";
+						hashTable[hash - (hopLimit - i)].originalSpot = NULL;
+
+						emptySlot = hash - (hopLimit - i);
+						break; // check next square of 4 slots
+					}
+					else if (i == hopLimit - 1) {
+						std::cout << "Insörkön fejld.\n";
+						return; // :( allt var förgäves
+					}
+				}
+			}
+
+			// emptySlot - startHash < hopLimit :D
+			hashTable[emptySlot].key = inKey;
+			hashTable[emptySlot].value = inValue;
+			hashTable[emptySlot].originalSpot = startHash;
+
+			std::cout << "Insertion succeeded!\n Hash element: " << hashTable[emptySlot].key << " | " << hashTable[emptySlot].value << std::endl;
 		}
 
 		// if linear fails, attempt to throw out occupied slot and add
 
 		// check if a slot is empty outside of hopLimit
 		
-		linearCounter = 0;
+		/*linearCounter = 0;
 		hash = hashkey(inKey + hopLimit) % tableSize;
 		for (int i = 0; i < hopLimit; i++) {
 			if (hashTable[hash].key == NULL) {
@@ -80,16 +110,10 @@ public:
 			}
 			linearCounter++;
 			hash = hashkey(inKey + hopLimit + linearCounter) % tableSize;
-		}
+		}*/
 
 
-
-
-
-
-
-		//there's no more to do here. Go home. 
-		std::cout << "Insert failed.\n";
+		
 	}
 
 	void printDatabase() {
@@ -100,11 +124,13 @@ public:
 
 		}
 	}
+
+	int hashkey(int key) {
+		return key % (tableSize + 2000);
+	}
 };
 
-int hashkey(int key) {
-	return key % 12000;
-}
+
 
 int main()
 {
@@ -114,7 +140,7 @@ int main()
 	srand(time(0));
 	int intinput;
 	while (true) {
-		std::cout << "1. Insert  \n2. Print database \n3. Benchmark LinearProbe max random load\n";
+		std::cout << "1. Insert  \n2. Print database \n3. Benchmark hopscotch hashing max random load\n";
 		std::getline(std::cin, strinput);
 		if (strinput == "1") {
 			std::cout << "Input key:";
@@ -129,7 +155,8 @@ int main()
 			hop.printDatabase();
 
 		}
-		/*if (strinput == "4") {
+		// will fail since load factor is 0.99, and hopscotch is not made for that shit
+		if (strinput == "3") {
 			for (int i = 0; i < 9999; i++) {
 				if (i == 0) {
 					hop.insert((rand()), "fun times");
@@ -147,7 +174,7 @@ int main()
 			std::cout << "Elapsed add max load factor: " << elapsed.count() << "s\n";
 
 
-		}*/
+		}
 
 
 	}
