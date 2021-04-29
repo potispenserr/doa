@@ -70,16 +70,17 @@ public:
 			int emptySlot = hash;
 			while (emptySlot - startHash >= hopLimit) {
 				for (int i = 1; i < hopLimit; i++) {
-					if (emptySlot - hashTable[hash - (hopLimit - i)].originalSpot < hopLimit) {
-						hashTable[emptySlot].key = hashTable[hash - (hopLimit - i)].key;
-						hashTable[emptySlot].value = hashTable[hash - (hopLimit - i)].value;
-						hashTable[emptySlot].originalSpot = hashTable[hash - (hopLimit - i)].originalSpot;
+					int hashTest = hashTable[emptySlot - (hopLimit - i)].originalSpot;
+					if (emptySlot - hashTest < hopLimit) {
+						hashTable[emptySlot].key = hashTable[hashTest].key;
+						hashTable[emptySlot].value = hashTable[hashTest].value;
+						hashTable[emptySlot].originalSpot = hashTable[hashTest].originalSpot;
 
-						hashTable[hash - (hopLimit - i)].key = NULL;
-						hashTable[hash - (hopLimit - i)].value = "";
-						hashTable[hash - (hopLimit - i)].originalSpot = NULL;
+						hashTable[hashTest].key = NULL;
+						hashTable[hashTest].value = "";
+						hashTable[hashTest].originalSpot = NULL;
 
-						emptySlot = hash - (hopLimit - i);
+						emptySlot = hashTest;
 						break; // check next square of 4 slots
 					}
 					else if (i == hopLimit - 1) {
@@ -117,9 +118,9 @@ public:
 	}
 
 	void printDatabase() {
-		std::cout << "arrayIndex \t hashIndex \t key \t value \n";
-		for (int i = 0; i < hashTable.size(); i++) {
-			std::cout << i << " \t \t " << hashTable[i].hashIndex << " \t \t " << hashTable[i].key << "\t " << hashTable[i].value << "\n";
+		std::cout << "arrayIndex \t original spot \t key \t value \n";
+		for (int i = 0; i < 31; i++) {
+			std::cout << i << " \t \t " << hashTable[i].originalSpot << " \t \t " << hashTable[i].key << "\t " << hashTable[i].value << "\n";
 			std::cout << "---------------------------------------------------------------------------" << "\n";
 
 		}
@@ -157,7 +158,7 @@ int main()
 		}
 		// will fail since load factor is 0.99, and hopscotch is not made for that shit
 		if (strinput == "3") {
-			for (int i = 0; i < 9999; i++) {
+			for (int i = 0; i < 10000; i++) {
 				if (i == 0) {
 					hop.insert((rand()), "fun times");
 				}
@@ -168,7 +169,7 @@ int main()
 			}
 
 			auto start = std::chrono::high_resolution_clock::now();
-			hop.insert(rand(), "not so fun times");
+			hop.insert(rand() % 500, "not so fun times");
 			auto finish = std::chrono::high_resolution_clock::now();
 			std::chrono::duration<double> elapsed = finish - start;
 			std::cout << "Elapsed add max load factor: " << elapsed.count() << "s\n";
